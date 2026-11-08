@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#090b16">
+  <title>NEON//RIFT — Sector 09</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game" aria-label="NEON RIFT: action game">
+    <canvas id="scene" aria-label="Игровая арена"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">N<span>✳</span></span><div><b>NEON<span>//</span>RIFT</b><small>URBAN EXORCISM DIVISION</small></div></div>
+      <div class="mission"><span class="live-dot"></span><div><small>ОПЕРАЦИЯ 09 / ЗОНА 04</small><b>ПЕРЕУЛОК «СИНЯЯ ЛИНИЯ»</b></div></div>
+      <div class="top-right"><span class="signal">◉ <i>SYNC 98%</i></span><button id="soundBtn" class="icon-btn" aria-label="Звук">♫</button><button id="pauseBtn" class="icon-btn" aria-label="Пауза">Ⅱ</button></div>
+    </header>
+    <section class="combat-hud" aria-label="Боевой статус">
+      <div class="player-info">
+        <div class="portrait"><span>✦</span><b>09</b></div>
+        <div class="stats"><div class="name-line"><b>АКИРА</b><span>Lv. 12 <i>•</i> ШТУРМ</span></div>
+          <div class="bar hp"><div id="hpFill"></div><span id="hpText">100 / 100</span></div>
+          <div class="bar energy"><div id="energyFill"></div></div>
+        </div>
+      </div>
+      <div class="wave-info"><small>ЗАЧИСТКА СЕКТОРА</small><b id="waveText">ВРАГИ: <span>03</span></b><div class="wave-lines"><i></i><i></i><i></i></div></div>
+      <div class="objective"><small>ЦЕЛЬ ОПЕРАЦИИ</small><b>УСТРАНИТЬ УГРОЗУ</b><span><i class="live-dot"></i> <span id="statusText">БОЙ ИДЁТ</span></span></div>
+    </section>
+    <div class="boss-hud" id="bossHud"><div class="boss-title"><span>ЭЛИТНЫЙ ОБЪЕКТ</span><b>ГЛИТЧ-ХАНТЕР</b><em>LV. 08</em></div><div class="boss-bar"><div id="bossFill"></div></div></div>
+    <div class="hint" id="hint"><span class="key">WASD</span> ПЕРЕМЕЩЕНИЕ <i>•</i> <span class="key">J</span> АТАКА <i>•</i> <span class="key">K</span> ИМПУЛЬС <i>•</i> <span class="key">SPACE</span> РЫВОК</div>
+    <div class="toast" id="toast"></div>
+    <div class="result" id="result"><div class="result-card"><div class="result-kicker">SECTOR 09 — COMPLETE</div><div class="result-title">ЗОНА<br><span>ОЧИЩЕНА.</span></div><p>Неплохая работа, прокси.<br>Город снова может дышать.</p><div class="result-score"><span>ВРЕМЯ <b id="finalTime">00:00</b></span><span>РАНГ <b id="finalRank">S</b></span></div><button id="restartBtn" class="action-btn">В БОЙ <span>↗</span></button></div></div>
+    <div class="pause-screen" id="pauseScreen"><div><span>⏸</span><b>ПАУЗА</b><small>Нажми ESC или кнопку паузы, чтобы продолжить</small></div></div>
+    <div class="start-screen" id="startScreen"><div class="start-card"><div class="eyebrow"><i></i> НЕСТАБИЛЬНАЯ ЗОНА ОБНАРУЖЕНА</div><h1>NEON<span>//</span><br>RIFT</h1><p>Зачисти переулок. Не дай разлому поглотить город.</p><button id="startBtn" class="action-btn">НАЧАТЬ ОПЕРАЦИЮ <span>↗</span></button><div class="start-note">WASD — движение <i>·</i> J — удар <i>·</i> K — импульс <i>·</i> SPACE — рывок <i>·</i> Q — ульта</div></div><div class="start-stamp">FIELD<br>TEST<br><b>09</b></div></div>
+    <div class="touch-controls" aria-label="Сенсорное управление"><div class="dpad"><button data-key="w">▲</button><div><button data-key="a">◀</button><button data-key="s">▼</button><button data-key="d">▶</button></div></div><div class="touch-actions"><button data-action="dodge" class="dodge">↗<small>РЫВОК</small></button><button data-action="skill" class="skill">✦<small>ИМПУЛЬС</small></button><button data-action="attack" class="attack">✕<small>АТАКА</small></button></div></div>
+    <div class="combo" id="combo"><b>0</b><span>HIT<br>COMBO</span></div>
+    <div class="ultimate-ready" id="ultimateReady">Q — УЛЬТА ГОТОВА</div>
+  </main>
+  <script type="module" src="js/game.js"></script>
+</body>
+</html>
