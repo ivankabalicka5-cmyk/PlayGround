@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0b" />
+  <title>COUNTER-STRIKE // DUST PROTOCOL</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+    { "imports": { "three": "./assets/vendor/three/three.module.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="scene-canvas" aria-label="Counter-Strike game viewport"></canvas>
+  <div class="screen-fx" aria-hidden="true">
+    <div class="vignette"></div><div class="grain"></div><div class="scanlines"></div>
+    <div id="damage-flash"></div><div id="flash"></div>
+  </div>
+
+  <div id="boot" class="boot">
+    <div class="boot-mark"><span>CS</span></div>
+    <div class="boot-copy">
+      <div class="boot-title">DUST PROTOCOL</div>
+      <div class="boot-line"><span id="boot-status">INITIALIZING TACTICAL RENDERER</span><b id="boot-pct">0%</b></div>
+      <div class="boot-bar"><i id="boot-fill"></i></div>
+      <div class="boot-sub">TACTICAL OPERATIONS NETWORK // SECURE CHANNEL</div>
+    </div>
+  </div>
+
+  <main id="menu" class="menu hidden">
+    <div class="menu-shade"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge"><span>CS</span><i></i></div>
+        <div class="brand-text"><b>COUNTER-STRIKE</b><small>DUST PROTOCOL</small></div>
+      </div>
+      <nav class="topnav">
+        <button class="nav-item active" data-menu="play">PLAY</button>
+        <button class="nav-item" data-menu="armory">ARMORY</button>
+        <button class="nav-item" data-menu="intel">INTEL</button>
+      </nav>
+      <div class="network"><span class="pulse"></span><b>NETWORK ONLINE</b><em>EU-WEST // 12 MS</em></div>
+    </header>
+
+    <section class="hero-copy">
+      <div class="eyebrow"><span class="eyebrow-line"></span><b>SEASON 04</b><em>TACTICAL FPS</em></div>
+      <h1 class="game-title"><span class="title-top">COUNTER</span><span class="title-bottom"><i></i>STRIKE</span></h1>
+      <div class="title-rule"><span></span><b>DUST PROTOCOL</b><em>5 V 5 // BOMB DEFUSAL</em></div>
+      <p class="hero-desc">The dust never settles. Drop into a rebuilt Dust II, hold the sites, and defuse the device before the clock burns out.</p>
+
+      <div class="menu-actions">
+        <button id="deploy-btn" class="btn btn-primary"><span class="btn-glow"></span><span class="btn-icon">▶</span><span class="btn-text"><b>DEPLOY</b><small>ENTER MATCH</small></span><span class="btn-arrow">→</span></button>
+        <button id="how-btn" class="btn btn-ghost"><span class="btn-text"><b>FIELD MANUAL</b><small>CONTROLS + OBJECTIVE</small></span><span class="btn-arrow">↗</span></button>
+      </div>
+
+      <div class="quick-facts">
+        <div><small>MAP</small><b>DUST II <em>REDUX</em></b></div>
+        <div><small>MODE</small><b>COMPETITIVE</b></div>
+        <div><small>DIFFICULTY</small><button id="difficulty-btn" class="fact-btn"><b id="difficulty-label">VETERAN</b><span>▾</span></button></div>
+      </div>
+    </section>
+
+    <aside class="intel-panel">
+      <div class="panel-head"><div><small>MATCH BRIEF</small><b>OPERATION SANDSTORM</b></div><span class="live-tag"><i></i>LIVE</span></div>
+      <div class="map-visual">
+        <canvas id="map-preview" width="560" height="260"></canvas>
+        <div class="map-scan"></div>
+        <div class="map-label tl"><b>A</b><span>SITE ALPHA</span></div>
+        <div class="map-label br"><b>B</b><span>SITE BRAVO</span></div>
+        <div class="map-coord">N 31°12' / E 47°04'</div>
+      </div>
+      <div class="brief-rows">
+        <div class="brief-row"><span class="icon">◎</span><div><small>PRIMARY OBJECTIVE</small><b>Defuse the bomb or eliminate all hostiles</b></div></div>
+        <div class="brief-row"><span class="icon">◈</span><div><small>YOUR ROLE</small><b>Counter-Terrorist // Point Guard</b></div></div>
+      </div>
+      <div class="loadout-head"><small>ACTIVE LOADOUT</small><span>1 / 3</span></div>
+      <div class="loadout-cards">
+        <button class="loadout-card selected" data-weapon="m4"><span class="weapon-silhouette m4"></span><b>M4A4</b><small>RIFLE</small><i>30</i></button>
+        <button class="loadout-card" data-weapon="awp"><span class="weapon-silhouette awp"></span><b>AWP</b><small>SNIPER</small><i>10</i></button>
+        <button class="loadout-card" data-weapon="ak"><span class="weapon-silhouette ak"></span><b>AK-47</b><small>RIFLE</small><i>30</i></button>
+      </div>
+      <div class="weapon-stats">
+        <div><small>DAMAGE</small><span class="stat-bar"><i style="width:78%"></i></span></div>
+        <div><small>RATE</small><span class="stat-bar"><i style="width:86%"></i></span></div>
+        <div><small>CONTROL</small><span class="stat-bar"><i style="width:68%"></i></span></div>
+      </div>
+      <div class="panel-foot"><span>★ 4.8 COMMUNITY RATING</span><b>SERVER #204</b></div>
+    </aside>
+
+    <footer class="menu-foot">
+      <div class="controls-hint"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>MOVE</span><kbd>RMB</kbd><span>AIM</span><kbd>R</kbd><span>RELOAD</span><kbd>E</kbd><span>DEFUSE</span></div>
+      <div class="legal">FAN-MADE TACTICAL EXPERIENCE // WEBGL 2.0 // v1.0.4</div>
+    </footer>
+  </main>
+
+  <div id="hud" class="hud hidden">
+    <div class="hud-top">
+      <div class="team-score ct"><div class="team-tag"><span class="team-icon">◈</span><div><small>COUNTER-TERRORISTS</small><b id="ct-score">0</b></div></div><div id="ct-alive" class="alive-pips"></div></div>
+      <div class="match-clock"><small id="round-label">ROUND 1</small><b id="round-time">1:55</b><span id="phase-label">BUY PHASE</span></div>
+      <div class="team-score t"><div id="t-alive" class="alive-pips"></div><div class="team-tag"><div><small>TERRORISTS</small><b id="t-score">0</b></div><span class="team-icon">☠</span></div></div>
+    </div>
+
+    <div id="objective-bar" class="objective-bar"><span class="obj-dot"></span><b id="objective-text">ELIMINATE ALL HOSTILES</b><em id="bomb-timer" class="hidden"></em></div>
+
+    <div class="hud-left">
+      <div id="killfeed" class="killfeed"></div>
+      <div class="money"><small>ACCOUNT</small><b id="money">$800</b></div>
+    </div>
+
+    <div class="hud-right">
+      <div class="radar-wrap">
+        <div class="radar-head"><span>DUST II</span><b>RADAR</b></div>
+        <canvas id="radar" width="360" height="360"></canvas>
+        <div class="radar-ring"></div>
+        <div class="radar-coords" id="radar-coords">N 00 // E 00</div>
+      </div>
+    </div>
+
+    <div class="crosshair" id="crosshair">
+      <i class="ch top"></i><i class="ch bottom"></i><i class="ch left"></i><i class="ch right"></i><span class="ch-dot"></span>
+      <div id="hitmarker" class="hitmarker"><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div id="target-name" class="target-name"></div>
+    <div id="interact" class="interact hidden"><kbd>E</kbd><b>HOLD TO DEFUSE</b><span class="progress"><i id="defuse-fill"></i></span></div>
+    <div id="damage-dirs" class="damage-dirs"></div>
+
+    <div class="hud-bottom">
+      <div class="vitals">
+        <div class="vital-icon">✚</div>
+        <div class="vital-main"><div class="vital-row"><span>HEALTH</span><b id="health">100</b></div><div class="health-bar"><i id="health-fill"></i></div><div class="armor-row"><span>ARMOR</span><b id="armor">100</b><em>KEVLAR</em></div></div>
+      </div>
+      <div class="hud-center-status"><div id="round-pop" class="round-pop hidden"><small>ROUND 1</small><b>GO GO GO</b></div></div>
+      <div class="ammo-block">
+        <div class="weapon-name"><small id="weapon-type">PRIMARY // RIFLE</small><b id="weapon-name">M4A4</b></div>
+        <div class="ammo-count"><b id="ammo">30</b><span>/</span><em id="reserve">90</em></div>
+        <div class="ammo-bar"><i id="ammo-fill"></i></div>
+        <div class="inventory"><span class="inv active" id="inv-primary">1 <b>M4A4</b></span><span class="inv" id="inv-secondary">2 <b>USP-S</b></span><span class="inv" id="inv-knife">3 <b>KNIFE</b></span></div>
+      </div>
+    </div>
+
+    <div id="crosshair-label" class="crosshair-label">M4A4 // 30 RDS</div>
+    <div id="fps" class="fps">60</div>
+    <div id="scope" class="scope hidden"><div class="scope-mask"></div><div class="scope-ring"></div><div class="scope-cross h"></div><div class="scope-cross v"></div><div class="scope-range">AWP // 8X</div><div class="scope-mil m1"></div><div class="scope-mil m2"></div><div class="scope-mil m3"></div></div>
+    <div id="spectate" class="spectate hidden"><span class="red-dot"></span><b>ELIMINATED</b><small>SPECTATING SQUAD // <i id="spec-name">---</i></small></div>
+  </div>
+
+  <div id="round-banner" class="round-banner hidden">
+    <div class="rb-line"></div>
+    <div class="rb-kicker" id="rb-kicker">ROUND 1</div>
+    <div class="rb-title" id="rb-title">COUNTER-TERRORISTS</div>
+    <div class="rb-sub" id="rb-sub">ELIMINATE ALL HOSTILES OR DEFEND THE SITES</div>
+    <div class="rb-line"></div>
+  </div>
+
+  <div id="paused" class="overlay hidden">
+    <div class="modal pause-modal">
+      <div class="modal-kicker">TACTICAL PAUSE</div>
+      <h2>PAUSED</h2>
+      <p>The operation is on hold. Re-enter the field when ready.</p>
+      <button id="resume-btn" class="btn btn-primary wide"><span class="btn-text"><b>RESUME MATCH</b><small>RETURN TO OPERATION</small></span><span class="btn-arrow">→</span></button>
+      <button id="restart-btn" class="btn btn-ghost wide"><span class="btn-text"><b>RESTART ROUND</b><small>RESET CURRENT ENGAGEMENT</small></span></button>
+      <div class="modal-settings">
+        <label><span>MOUSE SENSITIVITY</span><input id="sens" type="range" min="0.2" max="2.5" step="0.05" value="1"><b id="sens-val">1.00</b></label>
+        <label><span>MASTER VOLUME</span><input id="volume" type="range" min="0" max="1" step="0.05" value="0.65"><b id="vol-val">65%</b></label>
+      </div>
+      <button id="quit-btn" class="text-btn">LEAVE MATCH → MAIN MENU</button>
+    </div>
+  </div>
+
+  <div id="match-over" class="overlay hidden">
+    <div class="modal end-modal">
+      <div class="modal-kicker" id="end-kicker">MATCH COMPLETE</div>
+      <h2 id="end-title">VICTORY</h2>
+      <p id="end-sub">Counter-Terrorists secured the operation.</p>
+      <div class="end-score"><div><small>CT</small><b id="end-ct">0</b></div><span>:</span><div><small>T</small><b id="end-t">0</b></div></div>
+      <div class="end-stats"><div><small>KILLS</small><b id="end-kills">0</b></div><div><small>DEATHS</small><b id="end-deaths">0</b></div><div><small>HEADSHOTS</small><b id="end-hs">0</b></div><div><small>ACCURACY</small><b id="end-acc">0%</b></div></div>
+      <button id="again-btn" class="btn btn-primary wide"><span class="btn-text"><b>DEPLOY AGAIN</b><small>NEW MATCH</small></span><span class="btn-arrow">→</span></button>
+      <button id="menu-btn" class="text-btn">RETURN TO MAIN MENU</button>
+    </div>
+  </div>
+
+  <div id="manual" class="overlay hidden">
+    <div class="modal manual-modal">
+      <div class="modal-kicker">FIELD MANUAL // 01</div>
+      <h2>HOW TO PLAY</h2>
+      <div class="manual-grid">
+        <div><span class="key-cluster"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><b>MOVE</b><p>Shift to sprint. Space to jump. C to crouch.</p></div>
+        <div><span class="key-cluster"><kbd>LMB</kbd></span><b>FIRE</b><p>Tap for precision. Control the recoil pattern on long sprays.</p></div>
+        <div><span class="key-cluster"><kbd>RMB</kbd></span><b>AIM</b><p>Use sights for tighter spread. Right mouse toggles AWP scope.</p></div>
+        <div><span class="key-cluster"><kbd>E</kbd></span><b>DEFUSE</b><p>Hold near the device. Five seconds. No second chances.</p></div>
+        <div><span class="key-cluster"><kbd>R</kbd><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd></span><b>WEAPONS</b><p>Reload, then switch between primary, pistol and knife.</p></div>
+        <div><span class="key-cluster"><kbd>ESC</kbd></span><b>PAUSE</b><p>Release the mouse or open tactical settings.</p></div>
+      </div>
+      <div class="manual-objective"><span>◎</span><div><b>YOUR MISSION</b><p>Defend sites A and B. Eliminate the terrorist squad, or defuse the device after it is planted. Best of 7 rounds.</p></div></div>
+      <button id="manual-close" class="btn btn-primary wide"><span class="btn-text"><b>UNDERSTOOD</b><small>BACK TO BRIEFING</small></span><span class="btn-arrow">→</span></button>
+    </div>
+  </div>
+
+  <div id="mobile-controls" class="mobile-controls hidden">
+    <div id="move-zone" class="move-zone"><div class="stick"><i id="stick-knob"></i></div><span>MOVE</span></div>
+    <div id="look-zone" class="look-zone"><span>DRAG TO AIM</span></div>
+    <button id="mob-fire" class="mob-btn fire">FIRE</button>
+    <button id="mob-aim" class="mob-btn aim">AIM</button>
+    <button id="mob-reload" class="mob-btn reload">R</button>
+    <button id="mob-use" class="mob-btn use">E</button>
+    <button id="mob-jump" class="mob-btn jump">↑</button>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script type="module" src="src/game.js"></script>
+</body>
+</html>
