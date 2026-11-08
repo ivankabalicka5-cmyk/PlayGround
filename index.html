@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#101935" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23101935'/%3E%3Ccircle cx='32' cy='34' r='21' fill='%2389efdb'/%3E%3Ccircle cx='25' cy='31' r='2' fill='%23143c52'/%3E%3Ccircle cx='39' cy='31' r='2' fill='%23143c52'/%3E%3C/svg%3E" />
+  <title>Moonberry Marsh — Jelly Junction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="game-shell" aria-label="Moonberry Marsh platform game">
+    <canvas id="game" aria-label="Game view"></canvas>
+    <div class="topbar">
+      <a class="brand" href="#" aria-label="Jelly Junction home"><span class="brand-mark">✦</span><span>JELLY<span class="brand-light">JUNCTION</span></span></a>
+      <div class="level-tag"><span class="level-dot"></span> LEVEL 04 <b>·</b> MOONBERRY MARSH</div>
+      <button class="sound-button" id="soundButton" aria-label="Toggle sound" title="Toggle sound">♪</button>
+    </div>
+    <section class="hud" aria-live="polite">
+      <div class="hud-card berries-card"><div class="hud-icon berry-icon">✦</div><div><span class="hud-label">MOONBERRIES</span><strong id="berryCount">0 <small>/ 3</small></strong></div></div>
+      <div class="hud-card hearts-card"><div class="hud-icon heart-icon">♥</div><div><span class="hud-label">BUDDY BOUNCES</span><strong id="hearts">♥ ♥ ♥</strong></div></div>
+      <div class="pulse-card"><span class="pulse-symbol">◉</span><div class="pulse-copy"><b>LUMEN PULSE</b><span id="pulseText">READY · E</span><div class="pulse-meter"><i id="pulseMeter"></i></div></div><kbd>E</kbd></div>
+    </section>
+    <div class="objective"><span class="objective-star">✧</span><span id="objectiveText">Gather all 3 moonberries to wake the waystone</span></div>
+    <div class="toast" id="toast" role="status"></div>
+    <div class="overlay" id="overlay">
+      <div class="modal-card">
+        <div class="eyebrow"><span>✦</span> A JELLY JUNCTION ADVENTURE</div>
+        <div class="hero-buddy" aria-hidden="true"><div class="buddy-shine"></div><span class="eye eye-left"></span><span class="eye eye-right"></span><span class="smile"></span></div>
+        <h1 id="modalTitle">Moonberry<br><em>Marsh</em></h1>
+        <p id="modalCopy">A moonlit marsh, three sleepy berries, and one very bouncy buddy. Find your way to the waystone!</p>
+        <div class="howto"><div><kbd>←</kbd><kbd>→</kbd><span>Move</span></div><div><kbd>SPACE</kbd><span>Hop</span></div><div><kbd>E</kbd><span>Lumen pulse</span></div></div>
+        <button class="play-button" id="playButton"><span>LET'S BOUNCE</span><b>→</b></button>
+        <div class="touch-hint">ON MOBILE: use the buttons at the bottom of the screen</div>
+      </div>
+    </div>
+    <div class="touch-controls" aria-label="Touch controls">
+      <button id="leftButton" aria-label="Move left">←</button><button id="rightButton" aria-label="Move right">→</button>
+      <button id="jumpButton" class="jump-touch" aria-label="Jump">HOP <span>↗</span></button><button id="pulseButton" class="pulse-touch" aria-label="Lumen pulse">✦</button>
+    </div>
+    <div class="bottom-hint"><span>ARROWS / A D <b>MOVE</b></span><i></i><span>SPACE <b>HOP</b></span><i></i><span>E <b>LUMEN PULSE</b></span></div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
